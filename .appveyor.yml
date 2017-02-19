@@ -20,8 +20,7 @@ install:
   - 7z x glib_2.34.3-1_win32.zip -oC:\MinGW -r
   - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW -r
   - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW -r
-  - SET PATH=%PATH%;C:\MinGW\bin
-  - dir C:\MinGW\bin
+  - dir "C:\Program Files\MySQL\MySQL Server 5.7\bin"
   - pkg-config --libs mysqlclient
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init -yv --default-toolchain stable --default-host %target%
@@ -34,6 +33,7 @@ install:
 build: false
 
 before_test:
+  - SET PATH=%PATH%;C:\MinGW\bin
   # `cargo test` is broken with rustup. https://github.com/rust-lang/cargo/issues/3394
   - ps: $Env:PATH += ";" + (get-item (rustup which cargo)).Directory.FullName
   # setup pg databases
