@@ -19,10 +19,10 @@ build: false
 
 before_test:
   - SET PATH=%PATH%;C:\MinGW\bin
-  - SET PATH=%PATH%;C:\Program Files\PostgreSQL\9.5\bin
+  - "C:\Program Files\PostgreSQL\9.5\pg_env.bat"
+  - echo %PATH%
   - pg_config --libdir
   - pg_config
-  - dir "C:\Program Files\PostgreSQL\9.5\lib"
   - createdb diesel_test
 
 test_script:
