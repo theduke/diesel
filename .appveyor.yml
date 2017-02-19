@@ -17,7 +17,9 @@ install:
   - SET PATH=C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\MySQL\MySQL Server 5.7\lib;%PATH%
   # - cmd: assoc .pl=PerlScript
   # - cmd: ftype PerlScript=perl "%1" %*
+  - cd "C:\Program Files\MySQL\MySQL Server 5.7\bin"
   - perl mysql_config.pl
+  - iofweoijefwajioefwa
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init -yv --default-toolchain stable --default-host %target%
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
