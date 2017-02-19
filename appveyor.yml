@@ -19,19 +19,19 @@ build: false
 
 before_test:
   - SET PATH=%PATH%;C:\MinGW\bin
-  - C:\Program Files\PostgreSQL\9.5\pg_env.bat
+  - C:\Program^ Files\PostgreSQL\9.5\pg_env.bat
   - echo %PATH%
   - pg_config --libdir
   - pg_config
   - createdb diesel_test
 
 test_script:
-  - cd diesel
-  - cargo test --features "postgres extras"
-  - cd ../diesel_cli
-  - cargo test --no-default-features --features "postgres"
+  # - cd diesel
+  # - cargo test --features "postgres extras"
+  # - cd ../diesel_cli
+  # - cargo test --no-default-features --features "postgres"
   - cd ../diesel_codegen
-  - cargo test --features "postgres"
+  - cargo test --features "postgres" --verbose
   - cd ../diesel_tests
   - cargo test --features "postgres"
 
