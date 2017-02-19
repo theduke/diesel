@@ -8,6 +8,9 @@ branches:
 services:
   - postgresql95
 
+cache:
+  - C:\Users\appveyor\.cargo
+
 install:
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init -yv --default-toolchain stable --default-host %target%
