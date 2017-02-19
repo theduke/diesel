@@ -34,6 +34,8 @@ before_test:
   # setup mysql databases
   - SET PATH=C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\MySQL\MySQL Server 5.7\lib;%PATH%
   - mysql -e "create database diesel_test; create database diesel_unit_test;" -uroot
+  # - assoc .pl=PerlScript
+  - perl -le "print $^X"
 
 test_script:
   - cd diesel
