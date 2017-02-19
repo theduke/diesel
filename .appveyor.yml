@@ -35,7 +35,7 @@ before_test:
   - createdb diesel_test
   # setup mysql databases
   - SET PATH=C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\MySQL\MySQL Server 5.7\lib;%PATH%
-  - mysql -e "create database diesel_test; create database diesel_unit_test; ALTER USER 'ODBC'@'localhost' IDENTIFIED BY PASSWORD ''" -uroot
+  - mysql -e "create database diesel_test; create database diesel_unit_test; SET PASSWORD FOR 'ODBC'@'localhost' = '';" -uroot
 
 test_script:
   - cd diesel
