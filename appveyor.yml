@@ -19,7 +19,7 @@ build: false
 
 before_test:
   - SET PATH=%PATH%;C:\MinGW\bin
-  - '"C:\Program Files\PostgreSQL\9.5\pg_env.bat"'
+  - SET PATH=C:\Program Files\PostgreSQL\9.5\bin;%PATH%
   - echo %PATH%
   - pg_config --libdir
   - pg_config
