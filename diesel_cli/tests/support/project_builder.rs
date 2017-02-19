@@ -1,4 +1,3 @@
-use std::env;
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
 use tempdir::TempDir;
@@ -75,6 +74,8 @@ impl Project {
 
     #[cfg(feature="mysql")]
     pub fn database_url(&self) -> String {
+        use std::env;
+
         if env::var_os("APPVEYOR").is_some() {
             let password = env::var("MYSQL_PWD").unwrap();
             format!("mysql://root:{}@localhost/diesel_{}", password, self.name)
