@@ -10,7 +10,7 @@ services:
 
 install:
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
-  - rustup-init -yv --default-toolchain %channel% --default-host %target%
+  - rustup-init -yv --default-toolchain stable --default-host %target%
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
   - rustc -vV
   - cargo -vV
@@ -30,7 +30,7 @@ test_script:
   - cd ../diesel_cli
   - cargo test --no-default-features --features "%backend%"
   - cd ../diesel_codegen
-  - cargo test --features "%backend%" --verbose -- --nocapture
+  - cargo test --features "%backend%"
   - cd ../diesel_tests
   - cargo test --features "%backend%"
 
@@ -42,11 +42,9 @@ environment:
   matrix:
   #    - channel: stable
   #      target: x86_64-pc-windows-msvc
-    - channel: stable
-      target: x86_64-pc-windows-gnu
+    - target: x86_64-pc-windows-gnu
       backend: postgres
       DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
-    - channel: stable
-      target: x86_64-pc-windows-gnu
+    - target: x86_64-pc-windows-gnu
       backend: sqlite
       DATABASE_URL: test.db
