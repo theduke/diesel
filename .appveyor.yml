@@ -32,7 +32,7 @@ before_test:
   - createdb diesel_test
   # setup mysql databases
   - SET PATH=C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\MySQL\MySQL Server 5.7\lib;%PATH%
-  - mysql -e "create database diesel_test; create database diesel_unit_test;" -uroot
+  - mysql -e "create database diesel_test; create database diesel_unit_test; grant all on \`diesel_%\`.* to 'ODBC'@'%'" -uroot
 
 test_script:
   - cd diesel
