@@ -34,7 +34,7 @@ before_test:
   # setup mysql databases
   - SET PATH=C:\Program Files\MySQL\MySQL Server 5.7\bin;%PATH%
   - dir "C:\Program Files\MySQL\MySQL Server 5.7\bin"
-  - mysql_config
+  - mysql_config.pl
   - mysql -e "create database diesel_test; create database diesel_unit_test;" -uroot
 
 test_script:
