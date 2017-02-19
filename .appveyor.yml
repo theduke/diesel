@@ -21,6 +21,7 @@ install:
   - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW\bin -r
   - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW\bin -r
   - SET PATH=%PATH%;C:\MinGW\bin
+  - dir C:\MinGW\bin
   - pkg-config --libs mysqlclient
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init -yv --default-toolchain stable --default-host %target%
