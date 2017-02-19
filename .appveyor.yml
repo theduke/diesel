@@ -20,7 +20,8 @@ install:
   - 7z x glib_2.34.3-1_win32.zip -oC:\MinGW -r
   - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW -r
   - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW -r
-  - dir "C:\Program Files\MySQL\MySQL Server 5.7\bin"
+  - dir "C:\Program Files\MySQL\MySQL Server 5.7"
+  - dir "C:\Program Files\MySQL\MySQL Server 5.7\lib"
   - pkg-config --libs mysqlclient
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init -yv --default-toolchain stable --default-host %target%
