@@ -17,9 +17,9 @@ install:
   - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/glib_2.34.3-1_win32.zip
   - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/pkg-config_0.28-1_win32.zip
   - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/pkg-config-dev_0.28-1_win32.zip
-  - 7z x glib_2.34.3-1_win32.zip -oC:\MinGW\bin -r
-  - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW\bin -r
-  - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW\bin -r
+  - 7z x glib_2.34.3-1_win32.zip -oC:\MinGW -r
+  - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW -r
+  - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW -r
   - SET PATH=%PATH%;C:\MinGW\bin
   - dir C:\MinGW\bin
   - pkg-config --libs mysqlclient
