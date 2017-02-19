@@ -22,7 +22,7 @@ before_test:
   - SET PATH=%PATH%;C:\Program Files\PostgreSQL\9.5\bin
   - pg_config --libdir
   - pg_config
-  - dir "C:\Program Files\PostgreSQL\9.5\bin"
+  - dir "C:\Program Files\PostgreSQL\9.5\lib"
   - createdb diesel_test
 
 test_script:
@@ -37,8 +37,6 @@ test_script:
 
 environment:
   global:
-    RUST_DIST_DIR: dist/2016-01-15
-    RUSTC_VERSION: nightly
     DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
     PGUSER: postgres
     PGPASSWORD: Password12!
