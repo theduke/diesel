@@ -1,5 +1,6 @@
 version: 1.0.{build}
 
+# MySQL fails to link on 2015
 image: Visual Studio 2013
 
 branches:
@@ -34,7 +35,7 @@ before_test:
   - createdb diesel_test
   # setup mysql databases
   - SET PATH=C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\MySQL\MySQL Server 5.7\lib;%PATH%
-  - mysql -e "create database diesel_test; create database diesel_unit_test" -uroot
+  - mysql -e "create database diesel_test; create database diesel_unit_test; ALTER USER 'ODBC'@'localhost' IDENTIFIED BY PASSWORD ''" -uroot
 
 test_script:
   - cd diesel
@@ -53,6 +54,10 @@ environment:
     MYSQL_PWD: Password12!
 
   matrix:
+    # SQLite doesn't distribute a static lib
+    # - target: x86_64-pc-windows-msvc
+    #   backend: sqlite
+    #   DATABASE_URL: test.db
     - target: x86_64-pc-windows-msvc
       backend: mysql
       DATABASE_URL: mysql://root:Password12!@localhost:3306/diesel_test
@@ -63,10 +68,6 @@ environment:
     - target: x86_64-pc-windows-msvc
       backend: postgres
       DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
-    # SQLite doesn't distribute a static lib
-    # - target: x86_64-pc-windows-msvc
-    #   backend: sqlite
-    #   DATABASE_URL: test.db
     - target: x86_64-pc-windows-gnu
       backend: postgres
       DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
