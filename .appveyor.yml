@@ -13,6 +13,15 @@ cache:
   - C:\Users\appveyor\.cargo
 
 install:
+  # mysql_config doesn't do what we need on Windows. We need pkg-config
+  - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/glib_2.34.3-1_win32.zip
+  - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/pkg-config_0.28-1_win32.zip
+  - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/pkg-config-dev_0.28-1_win32.zip
+  - 7z x glib_2.34.3-1_win32.zip -oC:\MinGW\bin -r
+  - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW\bin -r
+  - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW\bin -r
+  - SET PATH=%PATH%;C:\MinGW\bin
+  - pkg-config --libs mysqlclient
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
   - rustup-init -yv --default-toolchain stable --default-host %target%
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
@@ -21,18 +30,9 @@ install:
   - appveyor DownloadFile https://sqlite.org/2017/sqlite-dll-win64-x64-3160200.zip -FileName sqlite3.zip
   - 7z e sqlite3.zip -y
   - set SQLITE3_LIB_DIR=%APPVEYOR_BUILD_FOLDER%
-  # mysql_config doesn't do what we need on Windows. We need pkg-config
-  - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/glib_2.34.3-1_win32.zip
-  - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/pkg-config_0.28-1_win32.zip
-  - appveyor DownloadFile http://win32builder.gnome.org/packages/3.6/pkg-config-dev_0.28-1_win32.zip
-  - 7z x glib_2.34.3-1_win32.zip -oC:\MinGW\bin -r
-  - 7z x pkg-config_0.28-1_win32.zip -oC:\MinGW\bin -r
-  - 7z x pkg-config-dev_0.28-1_win32.zip -oC:\MinGW\bin -r
-  - pkg-config --libs mysqlclient
 build: false
 
 before_test:
-  - SET PATH=%PATH%;C:\MinGW\bin
   # `cargo test` is broken with rustup. https://github.com/rust-lang/cargo/issues/3394
   - ps: $Env:PATH += ";" + (get-item (rustup which cargo)).Directory.FullName
   # setup pg databases
