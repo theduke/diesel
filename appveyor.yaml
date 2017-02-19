@@ -1,0 +1,43 @@
+version: 1.0.{build}
+
+branches:
+  only:
+    - master
+    - appveyor_nonsense
+
+services:
+  - postgresql95
+
+install:
+  - ps: Start-FileDownload "https://static.rust-lang.org/${env:RUST_DIST_DIR}/rust-${env:RUSTC_VERSION}-${env:TARGET}.exe"
+  - rust-%RUSTC_VERSION%-%TARGET%.exe /VERYSILENT /NORESTART /DIR="C:\Program Files (x86)\Rust"
+
+build: false
+
+before_test:
+  - SET PATH=%PATH%;C:\Program Files (x86)\Rust\bin
+  - SET PATH=%PATH%;C:\MinGW\bin
+  - SET PATH=%PATH%;C:\Program Files\PostgreSQL\9.5\bin
+  - createdb diesel_test
+
+test_script:
+  - cd diesel
+  - cargo test --features "unstable chrono"
+  - cd ../diesel_cli
+  - cargo test
+  - cd ../diesel_codegen
+  - cargo test --no-default-features --features nightly
+  - cd ../diesel_tests
+  - cargo test --no-default-features --features unstable_windows
+
+environment:
+  global:
+    RUST_DIST_DIR: dist/2016-01-15
+    RUSTC_VERSION: nightly
+    DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
+    PGUSER: postgres
+    PGPASSWORD: Password12!
+
+  matrix:
+    - TARGET: x86_64-pc-windows-gnu
+    - TARGET: x86_64-pc-windows-msvc
