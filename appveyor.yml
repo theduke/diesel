@@ -30,7 +30,8 @@ test_script:
   # - cargo test --features "postgres extras"
   # - cd ../diesel_cli
   # - cargo test --no-default-features --features "postgres"
-  - cd ../diesel_codegen
+  # - cd ../diesel_codegen
+  - cd diesel_codegen
   - cargo test --features "postgres" --verbose -- --nocapture
   - cd ../diesel_tests
   - cargo test --features "postgres"
