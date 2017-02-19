@@ -17,6 +17,9 @@ install:
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
   - rustc -vV
   - cargo -vV
+  - appveyor DownloadFile https://sqlite.org/2017/sqlite-dll-win64-x64-3160200.zip -FileName sqlite3.zip
+  - 7z e sqlite3.zip -y
+  - set SQLITE3_LIB_DIR=%APPVEYOR_BUILD_FOLDER%
 
 build: false
 
@@ -33,7 +36,7 @@ test_script:
   - cd ../diesel_cli
   - cargo test --no-default-features --features "%backend%"
   - cd ../diesel_codegen
-  - cargo test --features "%backend%"
+  - cargo test --features "%backend%" --verbose -- --nocapture
   - cd ../diesel_tests
   - cargo test --features "%backend%"
 
@@ -46,8 +49,8 @@ environment:
   #    - channel: stable
   #      target: x86_64-pc-windows-msvc
     - target: x86_64-pc-windows-gnu
-      backend: postgres
-      DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
-    - target: x86_64-pc-windows-gnu
       backend: sqlite
       DATABASE_URL: test.db
+    - target: x86_64-pc-windows-gnu
+      backend: postgres
+      DATABASE_URL: postgres://postgres:Password12!@localhost/diesel_test
