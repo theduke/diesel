@@ -20,6 +20,8 @@ build: false
 before_test:
   - SET PATH=%PATH%;C:\MinGW\bin
   - SET PATH=C:\Program Files\PostgreSQL\9.5\bin;%PATH%
+  # `cargo test` is broken with rustup. https://github.com/rust-lang/cargo/issues/3394
+  - ps: $Env:PATH += ";" + (get-item rustup which cargo).Directory.FullName
   - echo %PATH%
   - pg_config --libdir
   - pg_config
